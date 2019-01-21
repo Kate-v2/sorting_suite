@@ -9,3 +9,4 @@ Using Javascript, Node.js, Mocha, & Chai, this small application successfully us
 
 * This algorithm is tested - run `mocha test/merge_sort_test.js.`
 * There is no run file for interaction, the test demonstrates the JS module functionality.
+* node_modules contains files associated with testing library `chai` and debugging tool `pryjs`.
