@@ -8,60 +8,82 @@ module.exports = {
     return length == 1 ? arr : this.sort(arr)
   },
 
-  sort: function(arr, newArr = []) {
-    // return arr if arr.length == 1
-    // return this.addToArr(arr, newArr) if (arr.length == 1)
-    // return newArr.push(arr[0]) if arr.length == 1
-    // arr.length == 1 ? return this.addToArr(arr, newArr) : null
+  sort: function(arr) {
+    // sort left
+    // sort right
+    // merge left & right
+    let sorted
     if (arr.length == 1) {
-      return this.addToArr(arr, newArr)
+      return arr
+    } else {
+      // wow variables without 'let' persist through each recursive call
+      let left   = this.leftHalf(arr)
+      let lefty  = this.sort(left)
+      let right  = this.rightHalf(arr)
+      let righty = this.sort(right)
+      sorted = this.merge(lefty, righty)
     }
-
-    // let mid = this.middle(length)
-    //
-    // let left = this.breakArr(0, mid)
-    // let lefty = this.sort(left, newArr)
-    //
-    //
-    // let right = this.breakArr(arr, mid+1, length)
-    // let righty = this.sort(right, newArr)
-    //
-    // sort = this.addToArr(lefty, righty)
-    // left.length > 1 ? this.sort(left, newArr) : this.compare(newArr, left)
-    // let lefty = this.sort(left)
-
-
-    // let righty = this.sort(right)
-    // right.length > 1 ? this.sort(right) : return right
+    return sorted
   },
 
-
-  addToArr: function(left, right) {
-
-    // let arr = []
-    // let sizeL = left.length
-    // let sizeR = right.length
-    //
-    // let length = sizeL > sizeR ? sizeL : sizeR
-    //
-    //
-    //
-    // // for(l=0, r=0; x<length; x++){
-    //
-    //
-    //
-    //   if (left.length !=0 && left[l] <= right[r]) {
-    //   // if (left[l] <= right[r]) {
-    //     arr[x] = left[l]
-    //     l++
-    //   } else {
-    //     arr[x] = right[r]
-    //     r++
-    //   }
-    //
-    // }
-    // return arr
+  leftHalf: function(arr) {
+    let l = arr.length
+    let mid = this.middle(l)
+    let half = this.breakArr(arr, 0, mid)
+    return half
   },
+
+  rightHalf: function(arr) {
+    let l = arr.length
+    let mid = this.middle(l)
+    let half = this.breakArr(arr, mid, l)
+    return half
+  },
+
+  merge: function(left, right) {
+    let agr = []
+    let size = left.length + right.length
+    let index = 0
+
+    while (index < size ) {
+      // right is always equal or larger in size
+      if ( this.onlyRight(left, right) ) {
+        val = right.shift()
+        agr.push(val)
+        index += 1
+      } else if ( this.onlyLeft(left, right) ) {
+        val = left.shift()
+        agr.push(val)
+        index += 1
+      } else if ( this.leftSmaller(left, right) ) {
+        val = left.shift()
+        agr.push(val)
+        index += 1
+      } else if ( this.rightSmaller(left, right) ) {
+        val = right.shift()
+        agr.push(val)
+        index += 1
+      }
+    }
+    return agr
+  },
+
+  onlyRight: function(left, right) {
+    return (left.length == 0 && right.length > 0)
+  },
+
+  onlyLeft: function(left, right) {
+    return (right.length == 0 && left.length > 0)
+  },
+
+  leftSmaller: function(left, right) {
+    return (left[0] <= right[0])
+  },
+
+  rightSmaller: function(left, right) {
+    return (right[0] < left[0])
+  },
+
 
 
 
@@ -80,7 +102,7 @@ module.exports = {
   middle: function(length) {
     let half = length / 2
     return (length % 2 != 0) ? Math.floor(half) : half
-  }
+  },
 
 
 }

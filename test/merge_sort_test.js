@@ -12,33 +12,32 @@ describe('Merge Sort', function() {
       unsorted = [4, 3, 2, 1]
       expected = [1, 2, 3, 4]
       sorted = sort.mergeSort(unsorted)
-      this.skip('Not Able to Sort Yet')
       expect(sorted).to.eql(expected)
     });
 
-    // it('can sort', function() {
-    //   small = [2,1,100,3]
-    //   // expected = [1,2,3, 100]
-    //   expected = 'blah'
-    //   sorted = sort.sort(small)
-    //   // pry = require('pryjs')
-    //   // eval(pry.it)
-    //   assert(true, sorted === expected)
-    // });
+    it('can sort', function() {
+      small = [2,1]
+      expected = [1,2]
+      sorted = sort.sort(small)
+      expect(sorted).to.eql(expected)
+
+      large    = [9, 8, 7, 3, 2, 1, 4, 5, 6, 0]
+      expected = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+      sorted = sort.sort(large)
+      expect(sorted).to.eql(expected)
+
+    });
 
 
     it('can join & sort arrays', function() {
       left = [1]
       right = []
       expected = [1]
-      sorted = sort.addToArr(left, right)
+      sorted = sort.merge(left, right)
       expect(sorted).to.eql(expected)
 
 
     });
-
-
-
 
     // --- Helper methods ----
 
