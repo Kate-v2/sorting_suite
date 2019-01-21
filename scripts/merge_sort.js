@@ -46,6 +46,7 @@ module.exports = {
     let index = 0
 
     while (index < size ) {
+      let val
       // right is always equal or larger in size
       if ( this.onlyRight(left, right) ) {
         val = right.shift()
@@ -85,13 +86,11 @@ module.exports = {
   },
 
 
-
-
-
-
   // --- Helper methods ----
 
   breakArr: function(arr, start, end) {
+    let l = arr.length
+    let mid = this.middle(l)
     let piece = []
     for(x=0, i=start; i<end; x++, i++){
       piece[x] = arr[i]
